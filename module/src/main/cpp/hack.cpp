@@ -4,6 +4,7 @@
 
 #include "hack.h"
 #include "il2cpp_dump.h"
+#include "script_json.h"
 #include "log.h"
 #include "xdl.h"
 #include <cstring>
@@ -30,6 +31,7 @@ void hack_start(const char *game_data_dir) {
             sleep(2); // Kasih nafas setelah dapet handle
             il2cpp_api_init(handle);
             il2cpp_dump(game_data_dir);
+            script_json_dump(game_data_dir);
             break;
         } else {
             sleep(2); // Jangan terlalu agresif nanyanya
