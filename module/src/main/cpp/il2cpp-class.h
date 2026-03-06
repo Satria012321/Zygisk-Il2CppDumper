@@ -1,3 +1,9 @@
+#pragma once
+#include <stdint.h>
+#include <stddef.h>
+
+typedef void (*il2cpp_WorldChangedCallback)();
+
 typedef uint16_t Il2CppChar;
 typedef uintptr_t il2cpp_array_size_t;
 typedef int32_t TypeDefinitionIndex;
