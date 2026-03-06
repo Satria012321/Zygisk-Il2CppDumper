@@ -17,6 +17,10 @@
 #include <sys/mman.h>
 #include <linux/unistd.h>
 #include <array>
+#include <stdint.h>
+
+// Definisi global il2cpp_base â€” di-extern oleh script_json.cpp
+uint64_t il2cpp_base = 0;
 
 void hack_start(const char *game_data_dir) {
     bool load = false;
@@ -29,6 +33,14 @@ void hack_start(const char *game_data_dir) {
             load = true;
             LOGI("Dapet handle! Mulai Dump...");
             sleep(2); // Kasih nafas setelah dapet handle
+
+            // Ambil base address dari libcsharp.so
+            Dl_info di;
+            if (dladdr(handle, &di) && di.dli_fbase) {
+                il2cpp_base = reinterpret_cast<uint64_t>(di.dli_fbase);
+                LOGI("il2cpp_base: 0x%" PRIx64, il2cpp_base);
+            }
+
             il2cpp_api_init(handle);
             il2cpp_dump(game_data_dir);
             script_json_dump(game_data_dir);
@@ -119,7 +131,7 @@ struct NativeBridgeCallbacks {
 };
 
 bool NativeBridgeLoad(const char *game_data_dir, int api_level, void *data, size_t length) {
-    //TODO 等待houdini初始化
+    //TODO ç­‰å¾…houdiniåˆå§‹åŒ–
     sleep(5);
 
     auto libart = dlopen("libart.so", RTLD_NOW);
