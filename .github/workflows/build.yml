@@ -16,8 +16,10 @@ jobs:
         distribution: temurin
         java-version: 11
         cache: gradle
-    - run: |
-        chmod +x ./gradlew
+    - name: Fix gradlew permission
+      run: git update-index --chmod=+x gradlew && chmod +x ./gradlew
+    - name: Build
+      run: |
         sed -i 's/moduleDescription = "/moduleDescription = "(${{ github.event.inputs.package_name }}) /g' module.gradle
         sed -i "s/com.game.packagename/${{ github.event.inputs.package_name }}:UnityKillsMe/g" module/src/main/cpp/game.h
         ./gradlew :module:assembleRelease
