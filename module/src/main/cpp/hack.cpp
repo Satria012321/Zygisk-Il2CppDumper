@@ -38,7 +38,7 @@ void hack_start(const char *game_data_dir) {
             Dl_info di;
             if (dladdr(handle, &di) && di.dli_fbase) {
                 il2cpp_base = reinterpret_cast<uint64_t>(di.dli_fbase);
-                LOGI("il2cpp_base: 0x%" PRIx64, il2cpp_base);
+                LOGI("il2cpp_base: 0x%lx", (unsigned long)il2cpp_base);
             }
 
             il2cpp_api_init(handle);
