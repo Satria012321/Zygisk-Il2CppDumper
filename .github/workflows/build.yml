@@ -24,4 +24,5 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: zygisk-il2cppdumper
-        path: out/magisk_module_release/
+        path: 
+out/magisk_module_release/
